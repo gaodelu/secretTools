@@ -48,7 +48,7 @@ public class DataSwitchActionListener implements ActionListener {
             case "HEX->BASE64":
                 return Base64.encodeBase64String(data.getBytes());
             case "BASE64->HEX":
-                return new String(Base64.decodeBase64(data.getBytes())).toUpperCase();
+                return Hex.encodeHexString(Base64.decodeBase64(data)).toUpperCase();
             case "HEX->BASE64UrlSafe":
                 return new String(Base64.encodeBase64URLSafe(data.getBytes()));
             case "SHA1(H)":
@@ -72,7 +72,7 @@ public class DataSwitchActionListener implements ActionListener {
             case "ASCII->BASE64":
                 return Base64.encodeBase64String(Hex.encodeHexString(data.getBytes(StandardCharsets.UTF_8)).toUpperCase().getBytes());
             case "BASE64->ASCII":
-                return new String(Hex.decodeHex((new String(Base64.decodeBase64(data.getBytes())).toUpperCase()).toCharArray()), StandardCharsets.UTF_8);
+                return new String(Hex.decodeHex((new String(Base64.decodeBase64(data)).toUpperCase()).toCharArray()), StandardCharsets.UTF_8);
             case "ASCII->BASE64UrlSafe":
                 return new String(Base64.encodeBase64URLSafe(Hex.encodeHexString(data.getBytes(StandardCharsets.UTF_8)).toUpperCase().getBytes()));
             default:
