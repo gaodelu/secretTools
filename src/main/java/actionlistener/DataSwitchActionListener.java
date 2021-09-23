@@ -20,7 +20,7 @@ public class DataSwitchActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            String data = PanelUtil.getDataFromScrollPanel(e,1);//数据
+            String data = PanelUtil.getDataFromScrollPanel(e, 1);//数据
             String resultString = getResultString(e, data);
             Component componentResult = ((JButton) e.getSource()).getParent().getComponent(20);
             Component[] componentResults = ((JScrollPane) componentResult).getViewport().getComponents();
@@ -48,7 +48,7 @@ public class DataSwitchActionListener implements ActionListener {
             case "HEX->BASE64":
                 return Base64.encodeBase64String(data.getBytes());
             case "BASE64->HEX":
-                return Hex.encodeHexString(Base64.decodeBase64(data)).toUpperCase();
+                return new String(Base64.decodeBase64(data)).toUpperCase();
             case "HEX->BASE64UrlSafe":
                 return new String(Base64.encodeBase64URLSafe(data.getBytes()));
             case "SHA1(H)":
@@ -66,9 +66,9 @@ public class DataSwitchActionListener implements ActionListener {
             case "SHA512(H)":
                 return DigestUtils.sha512Hex(data.getBytes()).toUpperCase();
             case "SHA224(H)":
-                return getSha224Result(data, "SHA-224");
+                return getShaResult(data, "SHA-224");
             case "SHA384(H)":
-                return getSha224Result(data, "SHA-384");
+                return getShaResult(data, "SHA-384");
             case "ASCII->BASE64":
                 return Base64.encodeBase64String(Hex.encodeHexString(data.getBytes(StandardCharsets.UTF_8)).toUpperCase().getBytes());
             case "BASE64->ASCII":
@@ -80,7 +80,7 @@ public class DataSwitchActionListener implements ActionListener {
         }
     }
 
-    private String getSha224Result(String data, String algorithm) throws NoSuchAlgorithmException {
+    private String getShaResult(String data, String algorithm) throws NoSuchAlgorithmException {
         MessageDigest sha224 = MessageDigest.getInstance(algorithm);
         return Hex.encodeHexString(sha224.digest(data.getBytes())).toUpperCase();
     }
