@@ -46,11 +46,11 @@ public class DataSwitchActionListener implements ActionListener {
             case "ASCII->HEX":
                 return Hex.encodeHexString(data.getBytes(StandardCharsets.UTF_8)).toUpperCase();
             case "HEX->BASE64":
-                return Base64.encodeBase64String(data.getBytes());
+                return Base64.encodeBase64String(Hex.decodeHex(data.toCharArray()));
             case "BASE64->HEX":
-                return new String(Base64.decodeBase64(data)).toUpperCase();
+                return Hex.encodeHexString(Base64.decodeBase64(data)).toUpperCase();
             case "HEX->BASE64UrlSafe":
-                return new String(Base64.encodeBase64URLSafe(data.getBytes()));
+                return new String(Base64.encodeBase64URLSafe(Hex.decodeHex(data.toCharArray())));
             case "SHA1(H)":
                 return DigestUtils.sha1Hex(data.getBytes()).toUpperCase();
             case "MD5(H)":

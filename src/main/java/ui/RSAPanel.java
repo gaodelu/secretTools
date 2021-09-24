@@ -14,7 +14,7 @@ public class RSAPanel extends JPanel {
         java.util.List<JComponent> list = new ArrayList<>();
         /*左侧列 start*/
 
-        /**
+        /*
          * 密钥长度
          */
         JLabel jLabelData = new JLabel("bits[长度]:");
@@ -24,11 +24,13 @@ public class RSAPanel extends JPanel {
         jTextArea.setVisible(true);
         jTextArea.setBounds(130, 20, 150, 30);
         jTextArea.setLineWrap(true);
+        jTextArea.setText("2048");
         jTextArea.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         JScrollPane jScrollPane = new JScrollPane(jTextArea);
+        jScrollPane.setName("bits");
         jScrollPane.setVisible(true);
         jScrollPane.setBounds(130, 20, 150, 30);
-        /**
+        /*
          * 公钥
          */
         JLabel jLabelDataN = new JLabel("n[公钥](H):");
@@ -40,10 +42,11 @@ public class RSAPanel extends JPanel {
         jTextAreaN.setLineWrap(true);
         jTextAreaN.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         JScrollPane jScrollPaneN = new JScrollPane(jTextAreaN);
+        jScrollPaneN.setName("n");
         jScrollPaneN.setVisible(true);
         jScrollPaneN.setBounds(130, 60, 150, 30);
 
-        /**
+        /*
          * 私钥指数D
          */
         JLabel jLabelDataD = new JLabel("d[私钥指数](H):");
@@ -55,11 +58,12 @@ public class RSAPanel extends JPanel {
         jTextAreaD.setLineWrap(true);
         jTextAreaD.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         JScrollPane jScrollPaneD = new JScrollPane(jTextAreaD);
+        jScrollPaneD.setName("d");
         jScrollPaneD.setVisible(true);
         jScrollPaneD.setBounds(130, 100, 150, 30);
 
 
-        /**
+        /*
          * 质数P
          */
         JLabel jLabelDataP = new JLabel("p[质数1](H):");
@@ -71,13 +75,14 @@ public class RSAPanel extends JPanel {
         jTextAreaP.setLineWrap(true);
         jTextAreaP.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         JScrollPane jScrollPaneP = new JScrollPane(jTextAreaP);
+        jScrollPaneP.setName("p");
         jScrollPaneP.setVisible(true);
         jScrollPaneP.setBounds(130, 140, 150, 30);
 
-        /**
+        /*
          * 质数q
          */
-        JLabel jLabelDataQ = new JLabel("p[质数2](H):");
+        JLabel jLabelDataQ = new JLabel("q[质数2](H):");
         jLabelDataQ.setBounds(10, 180, 120, 30);
         jLabelDataQ.setVisible(true);
         JTextArea jTextAreaQ = new JTextArea();
@@ -86,10 +91,11 @@ public class RSAPanel extends JPanel {
         jTextAreaQ.setLineWrap(true);
         jTextAreaQ.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         JScrollPane jScrollPaneQ = new JScrollPane(jTextAreaQ);
+        jScrollPaneQ.setName("q");
         jScrollPaneQ.setVisible(true);
         jScrollPaneQ.setBounds(130, 180, 150, 30);
 
-        /**
+        /*
          * d mod p-1
          */
         JLabel jLabelDataDp = new JLabel("dp[d mod p-1](H):");
@@ -101,10 +107,11 @@ public class RSAPanel extends JPanel {
         jTextAreaDp.setLineWrap(true);
         jTextAreaDp.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         JScrollPane jScrollPaneDp = new JScrollPane(jTextAreaDp);
+        jScrollPaneDp.setName("dp");
         jScrollPaneDp.setVisible(true);
         jScrollPaneDp.setBounds(130, 220, 150, 30);
 
-        /**
+        /*
          * d mod q-1
          */
         JLabel jLabelDataDq = new JLabel("dp[d mod q-1](H):");
@@ -116,11 +123,12 @@ public class RSAPanel extends JPanel {
         jTextAreaDq.setLineWrap(true);
         jTextAreaDq.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         JScrollPane jScrollPaneDq = new JScrollPane(jTextAreaDq);
+        jScrollPaneDq.setName("dq");
         jScrollPaneDq.setVisible(true);
         jScrollPaneDq.setBounds(130, 260, 150, 30);
 
 
-        /**
+        /*
          * (inverse of q) mod p
          */
         JLabel jLabelDataIqp = new JLabel("invqp[invq mod p](H):");
@@ -132,13 +140,14 @@ public class RSAPanel extends JPanel {
         jTextAreaIqp.setLineWrap(true);
         jTextAreaIqp.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         JScrollPane jScrollPaneIqp = new JScrollPane(jTextAreaIqp);
+        jScrollPaneIqp.setName("invqp");
         jScrollPaneIqp.setVisible(true);
         jScrollPaneIqp.setBounds(130, 300, 150, 30);
 
         /*左侧列 end*/
         /*右侧列 start*/
 
-        /**
+        /*
          * 公钥指数
          */
         JLabel jLabelDataExponent = new JLabel("e[公钥指数](H):");
@@ -148,13 +157,15 @@ public class RSAPanel extends JPanel {
         jTextAreaExponent.setVisible(true);
         jTextAreaExponent.setBounds(410, 20, 100, 30);
         jTextAreaExponent.setLineWrap(true);
+        jTextAreaExponent.setText("010001");
         jTextAreaExponent.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         JScrollPane jScrollPaneExponent = new JScrollPane(jTextAreaExponent);
         jScrollPaneExponent.setVisible(true);
+        jScrollPaneExponent.setName("e");
         jScrollPaneExponent.setBounds(410, 20, 100, 30);
         jScrollPaneExponent.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
-        /**
+        /*
          * public Key
          */
         JLabel jLabelDataPk = new JLabel("pkDER(H):");
@@ -166,11 +177,12 @@ public class RSAPanel extends JPanel {
         jTextAreaPk.setLineWrap(true);
         jTextAreaPk.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         JScrollPane jScrollPanePk = new JScrollPane(jTextAreaPk);
+        jScrollPanePk.setName("pkDER");
         jScrollPanePk.setVisible(true);
         jScrollPanePk.setBounds(410, 60, 300, 30);
         jScrollPanePk.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
-        /**
+        /*
          * private Key
          */
         JLabel jLabelDataPv = new JLabel("pvDER(H):");
@@ -181,14 +193,14 @@ public class RSAPanel extends JPanel {
         jTextAreaPv.setBounds(410, 100, 300, 30);
         jTextAreaPv.setLineWrap(true);
         jTextAreaPv.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-
         JScrollPane jScrollPanePv = new JScrollPane(jTextAreaPv);
+        jScrollPanePv.setName("pvDER");
         jScrollPanePv.setVisible(true);
         jScrollPanePv.setBounds(410, 100, 300, 30);
         jScrollPanePv.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
 
-        /**
+        /*
          * data
          */
         JLabel jLabelDataData = new JLabel("data(H):");
@@ -199,14 +211,14 @@ public class RSAPanel extends JPanel {
         jTextAreaData.setBounds(410, 140, 300, 30);
         jTextAreaData.setLineWrap(true);
         jTextAreaData.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-
         JScrollPane jScrollPaneData = new JScrollPane(jTextAreaData);
+        jScrollPaneData.setName("data");
         jScrollPaneData.setVisible(true);
         jScrollPaneData.setBounds(410, 140, 300, 30);
         jScrollPaneData.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
 
-        /**
+        /*
          * result
          */
         JLabel jLabelDataResult = new JLabel("result(H):");
@@ -217,8 +229,8 @@ public class RSAPanel extends JPanel {
         jTextAreaResult.setBounds(410, 180, 300, 30);
         jTextAreaResult.setLineWrap(true);
         jTextAreaResult.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-
         JScrollPane jScrollPaneResult = new JScrollPane(jTextAreaResult);
+        jScrollPaneResult.setName("result");
         jScrollPaneResult.setVisible(true);
         jScrollPaneResult.setBounds(410, 180, 300, 30);
         jScrollPaneResult.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
