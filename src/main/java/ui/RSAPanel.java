@@ -4,11 +4,14 @@ import actionlistener.RsaActionListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class RSAPanel extends JPanel {
 
     public RSAPanel() {
         this.setLayout(null);
+        java.util.List<JComponent> list = new ArrayList<>();
         /*左侧列 start*/
 
         /**
@@ -22,7 +25,9 @@ public class RSAPanel extends JPanel {
         jTextArea.setBounds(130, 20, 150, 30);
         jTextArea.setLineWrap(true);
         jTextArea.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-
+        JScrollPane jScrollPane = new JScrollPane(jTextArea);
+        jScrollPane.setVisible(true);
+        jScrollPane.setBounds(130, 20, 150, 30);
         /**
          * 公钥
          */
@@ -34,6 +39,10 @@ public class RSAPanel extends JPanel {
         jTextAreaN.setBounds(130, 60, 150, 30);
         jTextAreaN.setLineWrap(true);
         jTextAreaN.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+        JScrollPane jScrollPaneN = new JScrollPane(jTextAreaN);
+        jScrollPaneN.setVisible(true);
+        jScrollPaneN.setBounds(130, 60, 150, 30);
+
         /**
          * 私钥指数D
          */
@@ -45,6 +54,11 @@ public class RSAPanel extends JPanel {
         jTextAreaD.setBounds(130, 100, 150, 30);
         jTextAreaD.setLineWrap(true);
         jTextAreaD.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+        JScrollPane jScrollPaneD = new JScrollPane(jTextAreaD);
+        jScrollPaneD.setVisible(true);
+        jScrollPaneD.setBounds(130, 100, 150, 30);
+
+
         /**
          * 质数P
          */
@@ -56,6 +70,9 @@ public class RSAPanel extends JPanel {
         jTextAreaP.setBounds(130, 140, 150, 30);
         jTextAreaP.setLineWrap(true);
         jTextAreaP.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+        JScrollPane jScrollPaneP = new JScrollPane(jTextAreaP);
+        jScrollPaneP.setVisible(true);
+        jScrollPaneP.setBounds(130, 140, 150, 30);
 
         /**
          * 质数q
@@ -68,7 +85,9 @@ public class RSAPanel extends JPanel {
         jTextAreaQ.setBounds(130, 180, 150, 30);
         jTextAreaQ.setLineWrap(true);
         jTextAreaQ.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-
+        JScrollPane jScrollPaneQ = new JScrollPane(jTextAreaQ);
+        jScrollPaneQ.setVisible(true);
+        jScrollPaneQ.setBounds(130, 180, 150, 30);
 
         /**
          * d mod p-1
@@ -81,7 +100,9 @@ public class RSAPanel extends JPanel {
         jTextAreaDp.setBounds(130, 220, 150, 30);
         jTextAreaDp.setLineWrap(true);
         jTextAreaDp.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-
+        JScrollPane jScrollPaneDp = new JScrollPane(jTextAreaDp);
+        jScrollPaneDp.setVisible(true);
+        jScrollPaneDp.setBounds(130, 220, 150, 30);
 
         /**
          * d mod q-1
@@ -94,6 +115,10 @@ public class RSAPanel extends JPanel {
         jTextAreaDq.setBounds(130, 260, 150, 30);
         jTextAreaDq.setLineWrap(true);
         jTextAreaDq.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+        JScrollPane jScrollPaneDq = new JScrollPane(jTextAreaDq);
+        jScrollPaneDq.setVisible(true);
+        jScrollPaneDq.setBounds(130, 260, 150, 30);
+
 
         /**
          * (inverse of q) mod p
@@ -106,6 +131,9 @@ public class RSAPanel extends JPanel {
         jTextAreaIqp.setBounds(130, 300, 150, 30);
         jTextAreaIqp.setLineWrap(true);
         jTextAreaIqp.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+        JScrollPane jScrollPaneIqp = new JScrollPane(jTextAreaIqp);
+        jScrollPaneIqp.setVisible(true);
+        jScrollPaneIqp.setBounds(130, 300, 150, 30);
 
         /*左侧列 end*/
         /*右侧列 start*/
@@ -121,7 +149,10 @@ public class RSAPanel extends JPanel {
         jTextAreaExponent.setBounds(410, 20, 100, 30);
         jTextAreaExponent.setLineWrap(true);
         jTextAreaExponent.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-
+        JScrollPane jScrollPaneExponent = new JScrollPane(jTextAreaExponent);
+        jScrollPaneExponent.setVisible(true);
+        jScrollPaneExponent.setBounds(410, 20, 100, 30);
+        jScrollPaneExponent.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
         /**
          * public Key
@@ -134,6 +165,10 @@ public class RSAPanel extends JPanel {
         jTextAreaPk.setBounds(410, 60, 300, 30);
         jTextAreaPk.setLineWrap(true);
         jTextAreaPk.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+        JScrollPane jScrollPanePk = new JScrollPane(jTextAreaPk);
+        jScrollPanePk.setVisible(true);
+        jScrollPanePk.setBounds(410, 60, 300, 30);
+        jScrollPanePk.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
         /**
          * private Key
@@ -147,6 +182,12 @@ public class RSAPanel extends JPanel {
         jTextAreaPv.setLineWrap(true);
         jTextAreaPv.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
+        JScrollPane jScrollPanePv = new JScrollPane(jTextAreaPv);
+        jScrollPanePv.setVisible(true);
+        jScrollPanePv.setBounds(410, 100, 300, 30);
+        jScrollPanePv.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+
+
         /**
          * data
          */
@@ -158,6 +199,12 @@ public class RSAPanel extends JPanel {
         jTextAreaData.setBounds(410, 140, 300, 30);
         jTextAreaData.setLineWrap(true);
         jTextAreaData.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+
+        JScrollPane jScrollPaneData = new JScrollPane(jTextAreaData);
+        jScrollPaneData.setVisible(true);
+        jScrollPaneData.setBounds(410, 140, 300, 30);
+        jScrollPaneData.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+
 
         /**
          * result
@@ -171,6 +218,10 @@ public class RSAPanel extends JPanel {
         jTextAreaResult.setLineWrap(true);
         jTextAreaResult.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
+        JScrollPane jScrollPaneResult = new JScrollPane(jTextAreaResult);
+        jScrollPaneResult.setVisible(true);
+        jScrollPaneResult.setBounds(410, 180, 300, 30);
+        jScrollPaneResult.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
         /* 右侧列 end */
 
@@ -195,8 +246,6 @@ public class RSAPanel extends JPanel {
         decomposeDerPvButton.setBounds(690, 360, 150, 50);
         decomposeDerPvButton.setVisible(true);
         decomposeDerPvButton.addActionListener(new RsaActionListener());
-
-
 
         JButton pkEncPkcs1Button = new JButton("公钥加密(PKCS1)");
         pkEncPkcs1Button.setBounds(10, 430, 150, 50);
@@ -232,45 +281,51 @@ public class RSAPanel extends JPanel {
         pvDecButton.setVisible(true);
         pvDecButton.addActionListener(new RsaActionListener());
 
+        list.add(jLabelData);
+        list.add(jScrollPane);
+        list.add(jLabelDataExponent);
+        list.add(jLabelDataN);
+        list.add(jLabelDataD);
+        list.add(jLabelDataP);
+        list.add(jLabelDataQ);
+        list.add(jLabelDataDp);
+        list.add(jLabelDataDq);
+        list.add(jLabelDataIqp);
+        list.add(jLabelDataPk);
+        list.add(jLabelDataPv);
+        list.add(jLabelDataData);
+        list.add(jLabelDataResult);
+        list.add(geneRsaButton);
+        list.add(geneDerPkButton);
+        list.add(geneDerPvButton);
+        list.add(decomposeDerPkButton);
+        list.add(decomposeDerPvButton);
+        list.add(pkEncPkcs1Button);
+        list.add(pkDecPkcs1Button);
+        list.add(pkEncButton);
+        list.add(pkDecButton);
+        list.add(pvEncPkcs1Button);
+        list.add(pvDecPkcs1Button);
+        list.add(pvEncButton);
+        list.add(pvDecButton);
+        list.add(jScrollPaneIqp);
+        list.add(jScrollPaneN);
+        list.add(jScrollPaneD);
+        list.add(jScrollPaneDp);
+        list.add(jScrollPaneDq);
+        list.add(jScrollPaneQ);
+        list.add(jScrollPaneP);
+        list.add(jScrollPaneExponent);
+        list.add(jScrollPanePk);
+        list.add(jScrollPanePv);
+        list.add(jScrollPaneData);
+        list.add(jScrollPaneResult);
 
-        this.add(jLabelData, 0);
-        this.add(jTextArea, 1);
-        this.add(jLabelDataExponent, 2);
-        this.add(jTextAreaExponent, 3);
-        this.add(jLabelDataN, 4);
-        this.add(jTextAreaN, 5);
-        this.add(jLabelDataD, 6);
-        this.add(jTextAreaD, 7);
-        this.add(jLabelDataP, 8);
-        this.add(jTextAreaP, 9);
-        this.add(jLabelDataQ, 10);
-        this.add(jTextAreaQ, 11);
-        this.add(jLabelDataDp, 12);
-        this.add(jTextAreaDp, 13);
-        this.add(jLabelDataDq, 14);
-        this.add(jTextAreaDq, 15);
-        this.add(jLabelDataIqp, 16);
-        this.add(jTextAreaIqp, 17);
-        this.add(jLabelDataPk, 18);
-        this.add(jTextAreaPk, 19);
-        this.add(jLabelDataPv, 20);
-        this.add(jTextAreaPv, 21);
-        this.add(jLabelDataData, 22);
-        this.add(jTextAreaData, 23);
-        this.add(jLabelDataResult, 24);
-        this.add(jTextAreaResult, 25);
-        this.add(geneRsaButton, 26);
-        this.add(geneDerPkButton, 27);
-        this.add(geneDerPvButton, 28);
-        this.add(decomposeDerPkButton, 29);
-        this.add(decomposeDerPvButton, 30);
-        this.add(pkEncPkcs1Button, 31);
-        this.add(pkDecPkcs1Button, 32);
-        this.add(pkEncButton, 33);
-        this.add(pkDecButton, 34);
-        this.add(pvEncPkcs1Button, 35);
-        this.add(pvDecPkcs1Button, 36);
-        this.add(pvEncButton, 37);
-        this.add(pvDecButton, 38);
+        //添加到面板里
+        AtomicInteger i = new AtomicInteger();
+        list.forEach((jComponent ->
+                this.add(jComponent, i.getAndIncrement())
+        ));
+
     }
 }
