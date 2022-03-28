@@ -96,7 +96,6 @@ public class AesUtil {
         }
         byte[] bytes = cipher.doFinal(Hex.decode(srcData));
         return Hex.toHexString(bytes).toUpperCase();
-
     }
 
 }

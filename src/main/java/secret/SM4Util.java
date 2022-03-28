@@ -176,5 +176,4 @@ public class SM4Util {
         flag = Arrays.equals(decryptData, srcData);
         return flag;
     }
-
 }
