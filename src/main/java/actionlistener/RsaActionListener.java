@@ -25,7 +25,7 @@ public class RsaActionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //根据按钮操作,跳转指定方法
         switch (e.getActionCommand()) {
-            case "产生RSA公私钥对":
+            case "产生RSA对":
                 generateRsaKeyPair(e);
                 break;
             case "合成DER公钥":
