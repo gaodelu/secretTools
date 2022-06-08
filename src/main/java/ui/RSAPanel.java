@@ -1,5 +1,7 @@
 package ui;
 
+import actionlistener.RsaActionListener;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -134,6 +136,71 @@ public class RSAPanel extends JPanel {
         jTextAreaResult.setLineWrap(true);
         jTextAreaResult.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
+        JButton geneRsaButton = new JButton("产生RSA对");
+        geneRsaButton.setBounds(10, 360, 200, 50);
+        geneRsaButton.setVisible(true);
+        geneRsaButton.addActionListener(new RsaActionListener());
+
+        JButton composeDerPk = new JButton("合成DER公钥");
+        composeDerPk.setBounds(220, 360, 200, 50);
+        composeDerPk.setVisible(true);
+        composeDerPk.addActionListener(new RsaActionListener());
+
+        JButton composeDerPv = new JButton("合成DER私钥");
+        composeDerPv.setBounds(430, 360, 200, 50);
+        composeDerPv.setVisible(true);
+        composeDerPv.addActionListener(new RsaActionListener());
+
+        JButton resolveDerPk = new JButton("分解DER公钥");
+        resolveDerPk.setBounds(640, 360, 200, 50);
+        resolveDerPk.setVisible(true);
+        resolveDerPk.addActionListener(new RsaActionListener());
+
+        JButton resolveDerPv = new JButton("分解DER私钥");
+        resolveDerPv.setBounds(850, 360, 200, 50);
+        resolveDerPv.setVisible(true);
+        resolveDerPv.addActionListener(new RsaActionListener());
+
+        JButton pkEncPKCS1 = new JButton("公钥加密（PKCS1）");
+        pkEncPKCS1.setBounds(10, 440, 200, 50);
+        pkEncPKCS1.setVisible(true);
+        pkEncPKCS1.addActionListener(new RsaActionListener());
+
+        JButton pkDecPKCS1 = new JButton("公钥解密（PKCS1）");
+        pkDecPKCS1.setBounds(220, 440, 200, 50);
+        pkDecPKCS1.setVisible(true);
+        pkDecPKCS1.addActionListener(new RsaActionListener());
+
+        JButton pkEnc = new JButton("公钥加密");
+        pkEnc.setBounds(430, 440, 200, 50);
+        pkEnc.setVisible(true);
+        pkEnc.addActionListener(new RsaActionListener());
+
+        JButton pkDec = new JButton("公钥解密");
+        pkDec.setBounds(640, 440, 200, 50);
+        pkDec.setVisible(true);
+        pkDec.addActionListener(new RsaActionListener());
+
+        JButton pvEncPKCS1 = new JButton("私钥加密（PKCS1）");
+        pvEncPKCS1.setBounds(10, 520, 200, 50);
+        pvEncPKCS1.setVisible(true);
+        pvEncPKCS1.addActionListener(new RsaActionListener());
+
+        JButton pvDecPKCS1 = new JButton("私钥解密（PKCS1）");
+        pvDecPKCS1.setBounds(220, 520, 200, 50);
+        pvDecPKCS1.setVisible(true);
+        pvDecPKCS1.addActionListener(new RsaActionListener());
+
+        JButton pvEnc = new JButton("私钥加密");
+        pvEnc.setBounds(430, 520, 200, 50);
+        pvEnc.setVisible(true);
+        pvEnc.addActionListener(new RsaActionListener());
+
+        JButton pvDec = new JButton("私钥解密");
+        pvDec.setBounds(640, 520, 200, 50);
+        pvDec.setVisible(true);
+        pvDec.addActionListener(new RsaActionListener());
+
 
         this.add(jLabelData, 0);
         this.add(jTextArea, 1);
@@ -161,6 +228,19 @@ public class RSAPanel extends JPanel {
         this.add(jTextAreaResult, 23);
         this.add(jLabelDataQinv, 24);
         this.add(jTextAreaQinv, 25);
+        this.add(geneRsaButton, 26);
+        this.add(composeDerPk, 27);
+        this.add(composeDerPv, 28);
+        this.add(resolveDerPk, 29);
+        this.add(resolveDerPv, 30);
+        this.add(pkEncPKCS1, 31);
+        this.add(pkDecPKCS1, 32);
+        this.add(pkEnc, 33);
+        this.add(pkDec, 34);
+        this.add(pvEncPKCS1, 35);
+        this.add(pvDecPKCS1, 36);
+        this.add(pvEnc, 37);
+        this.add(pvDec, 38);
     }
 
 }
