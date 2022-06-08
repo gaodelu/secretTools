@@ -48,6 +48,34 @@ public class RsaActionListener implements ActionListener {
      * @param e
      */
     private void decomposeDerpv(ActionEvent e) {
+        Container parent = ((JButton) e.getSource()).getParent();
+        Component pvCom = PanelUtil.searchComponentByName(parent, "pvDER");
+        String pvDer = PanelUtil.getDataFromScrollPanel((JScrollPane) pvCom);
+        try {
+            Map<String, Object> keyMap = RsaUtil.decomposeDerPv(pvDer);
+            Component nComponent = PanelUtil.searchComponentByName(parent, "n");
+            Component dComponent = PanelUtil.searchComponentByName(parent, "d");
+            Component pComponent = PanelUtil.searchComponentByName(parent, "p");
+            Component qComponent = PanelUtil.searchComponentByName(parent, "q");
+            Component dpComponent = PanelUtil.searchComponentByName(parent, "dp");
+            Component dqComponent = PanelUtil.searchComponentByName(parent, "dq");
+            Component invqpComponent = PanelUtil.searchComponentByName(parent, "invqp");
+            Component eComponent = PanelUtil.searchComponentByName(parent, "e");
+            ((JTextArea) ((JScrollPane) nComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.N)));
+            ((JTextArea) ((JScrollPane) dComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.D)));
+            ((JTextArea) ((JScrollPane) pComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.P)));
+            ((JTextArea) ((JScrollPane) qComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.Q)));
+            ((JTextArea) ((JScrollPane) dpComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.D_P)));
+            ((JTextArea) ((JScrollPane) dqComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.D_Q)));
+            ((JTextArea) ((JScrollPane) invqpComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.INV_Q_P)));
+            ((JTextArea) ((JScrollPane) eComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.E)));
+        } catch (NoSuchAlgorithmException | DecoderException | InvalidKeySpecException ex) {
+            //赋值
+            Component resultComponent = PanelUtil.searchComponentByName(parent, "result");
+            ((JTextArea) ((JScrollPane) resultComponent).getViewport().getComponents()[0]).setText(ex.getMessage());
+        }
+
+
     }
 
     /**
@@ -56,7 +84,6 @@ public class RsaActionListener implements ActionListener {
      * @param e
      */
     private void getDerPv(ActionEvent e) {
-
 
     }
 
