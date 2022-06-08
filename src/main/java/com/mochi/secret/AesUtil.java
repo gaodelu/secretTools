@@ -1,7 +1,7 @@
-package secret;
+package com.mochi.secret;
 
-import common.enumutil.ResponseEnum;
-import common.exception.BusinessException;
+import com.mochi.common.enumutil.ResponseEnum;
+import com.mochi.common.exception.BusinessException;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Hex;

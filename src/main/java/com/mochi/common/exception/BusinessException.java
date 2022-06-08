@@ -1,4 +1,4 @@
-package common.exception;
+package com.mochi.common.exception;
 
 public class BusinessException extends RuntimeException {
 

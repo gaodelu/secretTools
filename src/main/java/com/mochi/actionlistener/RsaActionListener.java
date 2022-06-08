@@ -1,12 +1,12 @@
-package actionlistener;
+package com.mochi.actionlistener;
 
-import common.enumutil.Constants;
-import common.enumutil.ResponseEnum;
-import common.exception.BusinessException;
-import common.util.PanelUtil;
+import com.mochi.common.enumutil.Constants;
+import com.mochi.common.enumutil.ResponseEnum;
+import com.mochi.common.exception.BusinessException;
+import com.mochi.common.util.PanelUtil;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.lang3.StringUtils;
-import secret.RsaUtil;
+import com.mochi.secret.RsaUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,13 +29,35 @@ public class RsaActionListener implements ActionListener {
                 getDerPk(e);
                 break;
             case "合成DER私钥":
+                getDerPv(e);
                 break;
             case "分解DER公钥":
                 decomposeDerpk(e);
                 break;
+            case "分解DER私钥":
+                decomposeDerpv(e);
+                break;
             default:
                 throw new BusinessException(ResponseEnum.PB_0001.getRespCode(), ResponseEnum.PB_0001.getRespMsg());
         }
+    }
+
+    /**
+     * 分解DER私钥
+     *
+     * @param e
+     */
+    private void decomposeDerpv(ActionEvent e) {
+    }
+
+    /**
+     * 合成DER私钥
+     *
+     * @param e
+     */
+    private void getDerPv(ActionEvent e) {
+
+
     }
 
     /**

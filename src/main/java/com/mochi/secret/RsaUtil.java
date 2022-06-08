@@ -1,18 +1,13 @@
-package secret;
+package com.mochi.secret;
 
-import common.enumutil.Constants;
+import com.mochi.common.enumutil.Constants;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
-import org.bouncycastle.jcajce.provider.asymmetric.X509;
 import org.bouncycastle.jcajce.provider.asymmetric.rsa.BCRSAPrivateCrtKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.util.encoders.Base64;
-import sun.security.rsa.RSAPrivateKeyImpl;
 
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.security.*;
-import java.security.interfaces.RSAKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.*;
@@ -45,7 +40,6 @@ public class RsaUtil {
         result.put(Constants.E, spec.getPublicExponent().toString(16).toUpperCase());
         return result;
     }
-
 
     public static String geneneratePublicKey(String key, String publicExponent) throws InvalidKeySpecException, NoSuchAlgorithmException {
         RSAPublicKeySpec keySpec = new RSAPublicKeySpec(new BigInteger(key, 16), BigInteger.valueOf(Long.valueOf(publicExponent, 16)));

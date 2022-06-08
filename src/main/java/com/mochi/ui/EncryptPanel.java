@@ -1,6 +1,6 @@
-package ui;
+package com.mochi.ui;
 
-import actionlistener.EncryptActionListener;
+import com.mochi.actionlistener.EncryptActionListener;
 
 import javax.swing.*;
 

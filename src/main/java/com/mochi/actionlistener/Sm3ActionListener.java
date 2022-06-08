@@ -1,7 +1,7 @@
-package actionlistener;
+package com.mochi.actionlistener;
 
-import common.util.PanelUtil;
-import secret.SM3Util;
+import com.mochi.common.util.PanelUtil;
+import com.mochi.secret.SM3Util;
 
 import javax.swing.*;
 import java.awt.*;

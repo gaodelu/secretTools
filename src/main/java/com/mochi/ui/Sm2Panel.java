@@ -1,4 +1,4 @@
-package ui;
+package com.mochi.ui;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package secret;
+package com.mochi.secret;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;

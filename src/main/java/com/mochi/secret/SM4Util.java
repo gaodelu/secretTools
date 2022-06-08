@@ -1,4 +1,4 @@
-package secret;
+package com.mochi.secret;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;

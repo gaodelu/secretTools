@@ -1,4 +1,4 @@
-package common.util;
+package com.mochi.common.util;
 
 import javax.swing.*;
 import java.awt.*;

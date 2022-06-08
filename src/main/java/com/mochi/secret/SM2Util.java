@@ -1,4 +1,4 @@
-package secret;
+package com.mochi.secret;
 
 import org.bouncycastle.asn1.DERBitString;
 import org.bouncycastle.asn1.gm.GMObjectIdentifiers;

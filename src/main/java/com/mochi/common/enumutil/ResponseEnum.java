@@ -1,4 +1,4 @@
-package common.enumutil;
+package com.mochi.common.enumutil;
 
 public enum ResponseEnum {
 

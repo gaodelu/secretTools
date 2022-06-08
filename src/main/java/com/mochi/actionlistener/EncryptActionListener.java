@@ -1,12 +1,12 @@
-package actionlistener;
+package com.mochi.actionlistener;
 
-import common.enumutil.ResponseEnum;
-import common.exception.BusinessException;
-import common.util.PanelUtil;
-import common.util.StringUtil;
-import secret.AesUtil;
-import secret.DesUtil;
-import secret.SM4Util;
+import com.mochi.common.enumutil.ResponseEnum;
+import com.mochi.common.exception.BusinessException;
+import com.mochi.common.util.PanelUtil;
+import com.mochi.common.util.StringUtil;
+import com.mochi.secret.AesUtil;
+import com.mochi.secret.DesUtil;
+import com.mochi.secret.SM4Util;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;

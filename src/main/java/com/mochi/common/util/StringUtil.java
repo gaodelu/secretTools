@@ -1,7 +1,4 @@
-package common.util;
-
-import common.enumutil.ResponseEnum;
-import common.exception.BusinessException;
+package com.mochi.common.util;
 
 import java.util.LinkedList;
 import java.util.List;

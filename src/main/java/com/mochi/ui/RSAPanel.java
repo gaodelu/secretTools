@@ -1,6 +1,6 @@
-package ui;
+package com.mochi.ui;
 
-import actionlistener.RsaActionListener;
+import com.mochi.actionlistener.RsaActionListener;
 
 import javax.swing.*;
 import java.awt.*;

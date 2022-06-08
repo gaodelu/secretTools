@@ -1,7 +1,9 @@
-import ui.DataConvertPanel;
-import ui.EncryptPanel;
-import ui.RSAPanel;
-import ui.Sm2Panel;
+package com.mochi;
+
+import com.mochi.ui.DataConvertPanel;
+import com.mochi.ui.EncryptPanel;
+import com.mochi.ui.RSAPanel;
+import com.mochi.ui.Sm2Panel;
 
 import javax.swing.*;
 import java.util.LinkedHashMap;
