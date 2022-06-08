@@ -4,12 +4,15 @@ import common.enumutil.Constants;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.bouncycastle.jcajce.provider.asymmetric.X509;
+import org.bouncycastle.jcajce.provider.asymmetric.rsa.BCRSAPrivateCrtKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;
+import sun.security.rsa.RSAPrivateKeyImpl;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
+import java.security.interfaces.RSAKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.*;
@@ -31,6 +34,15 @@ public class RsaUtil {
         RSAPublicKey rsaPublicKey = (RSAPublicKey) keyPair.getPublic();
         result.put(Constants.PUBLIC_KEY, Hex.encodeHexString(rsaPublicKey.getEncoded()).toUpperCase());
         result.put(Constants.PRIVATE_KEY, Hex.encodeHexString(rsaPrivateKey.getEncoded()).toUpperCase());
+        BCRSAPrivateCrtKey spec = (BCRSAPrivateCrtKey) rsaPrivateKey;
+        result.put(Constants.P, spec.getPrimeP().toString(16).toUpperCase());
+        result.put(Constants.Q, spec.getPrimeP().toString(16).toUpperCase());
+        result.put(Constants.N, spec.getModulus().toString(16).toUpperCase());
+        result.put(Constants.D, spec.getPrivateExponent().toString(16).toUpperCase());
+        result.put(Constants.D_P, spec.getPrimeExponentP().toString(16).toUpperCase());
+        result.put(Constants.D_Q, spec.getPrimeExponentQ().toString(16).toUpperCase());
+        result.put(Constants.INV_Q_P, spec.getCrtCoefficient().toString(16).toUpperCase());
+        result.put(Constants.E, spec.getPublicExponent().toString(16).toUpperCase());
         return result;
     }
 

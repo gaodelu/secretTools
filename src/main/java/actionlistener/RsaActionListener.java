@@ -15,10 +15,7 @@ import java.awt.event.ActionListener;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class RsaActionListener implements ActionListener {
     @Override
@@ -64,7 +61,7 @@ public class RsaActionListener implements ActionListener {
     /**
      * 公钥转DER格式
      *
-     * @param  e 按钮事件
+     * @param e 按钮事件
      */
     private void getDerPk(ActionEvent e) {
         //获取密钥长度
@@ -88,7 +85,7 @@ public class RsaActionListener implements ActionListener {
     /**
      * 生成RSA密钥对
      *
-     * @param  e 按钮事件
+     * @param e 按钮事件
      */
     private void generateRsaKeyPair(ActionEvent e) {
         //获取密钥长度
@@ -98,14 +95,30 @@ public class RsaActionListener implements ActionListener {
         int bits = Integer.parseInt(StringUtils.isEmpty(bitsString) ? "2048" : bitsString);
         //获取公钥指数
         Component pkExponent = PanelUtil.searchComponentByName(parent, "e");
-        String publicExponent = PanelUtil.getDataFromScrollPanel((JScrollPane) pkExponent);
+        String publicExponent = StringUtils.isEmpty(PanelUtil.getDataFromScrollPanel((JScrollPane) pkExponent)) ? "010001" : PanelUtil.getDataFromScrollPanel((JScrollPane) pkExponent);
         try {
             Map<String, Object> keyMap = RsaUtil.generateKey(bits, publicExponent);
             //赋值
             Component pkDerComponent = PanelUtil.searchComponentByName(parent, "pkDER");
             Component pvDerComponent = PanelUtil.searchComponentByName(parent, "pvDER");
+            Component nComponent = PanelUtil.searchComponentByName(parent, "n");
+            Component dComponent = PanelUtil.searchComponentByName(parent, "d");
+            Component pComponent = PanelUtil.searchComponentByName(parent, "p");
+            Component qComponent = PanelUtil.searchComponentByName(parent, "q");
+            Component dpComponent = PanelUtil.searchComponentByName(parent, "dp");
+            Component dqComponent = PanelUtil.searchComponentByName(parent, "dq");
+            Component invqpComponent = PanelUtil.searchComponentByName(parent, "invqp");
+            Component eComponent = PanelUtil.searchComponentByName(parent, "e");
             ((JTextArea) ((JScrollPane) pkDerComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.PUBLIC_KEY)));
             ((JTextArea) ((JScrollPane) pvDerComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.PRIVATE_KEY)));
+            ((JTextArea) ((JScrollPane) nComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.N)));
+            ((JTextArea) ((JScrollPane) dComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.D)));
+            ((JTextArea) ((JScrollPane) pComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.P)));
+            ((JTextArea) ((JScrollPane) qComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.Q)));
+            ((JTextArea) ((JScrollPane) dpComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.D_P)));
+            ((JTextArea) ((JScrollPane) dqComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.D_Q)));
+            ((JTextArea) ((JScrollPane) invqpComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.INV_Q_P)));
+            ((JTextArea) ((JScrollPane) eComponent).getViewport().getComponents()[0]).setText(String.valueOf(keyMap.get(Constants.E)));
         } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException ex) {
             //赋值
             Component resultComponent = PanelUtil.searchComponentByName(parent, "result");
