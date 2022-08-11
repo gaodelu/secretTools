@@ -6,6 +6,7 @@ import org.apache.commons.codec.binary.Hex;
 import org.bouncycastle.jcajce.provider.asymmetric.rsa.BCRSAPrivateCrtKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import sun.security.rsa.RSAPrivateCrtKeyImpl;
+import sun.security.rsa.RSAUtil;
 
 import java.math.BigInteger;
 import java.security.*;
@@ -49,6 +50,30 @@ public class RsaUtil {
         return Hex.encodeHexString(publicKey.getEncoded()).toUpperCase();
     }
 
+    public static String geneneratePrivateKey(String n, String p, String q, String d, String e, String pe, String qe, String coeff) throws InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException {
+        /**
+         *  this.n = var2;
+         *         this.e = var3;
+         *         this.d = var4;
+         *         this.p = var5;
+         *         this.q = var6;
+         *         this.pe = var7;
+         *         this.qe = var8;
+         *         this.coeff = var9;
+         */
+        RSAPrivateKey rsaPrivateKey = RSAPrivateCrtKeyImpl.newKey(RSAUtil.KeyType.lookup("RSA"), null, new BigInteger(n, 16),
+                new BigInteger(e, 16),
+                new BigInteger(d, 16),
+                new BigInteger(p, 16),
+                new BigInteger(q, 16),
+                new BigInteger(pe, 16),
+                new BigInteger(qe, 16),
+                new BigInteger(coeff, 16)
+        );
+        System.out.println(Hex.encodeHexString(rsaPrivateKey.getEncoded()).toUpperCase());
+        return Hex.encodeHexString(rsaPrivateKey.getEncoded()).toUpperCase();
+    }
+
     public static String decomposeDerpk(String hexKey) throws DecoderException, NoSuchAlgorithmException, InvalidKeySpecException {
         X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(Hex.decodeHex(hexKey.toCharArray()));
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
@@ -57,11 +82,11 @@ public class RsaUtil {
         return modulus.toString(16).toUpperCase();
     }
 
-    public static Map<String,Object> decomposeDerPv(String hexKey) throws NoSuchAlgorithmException, DecoderException, InvalidKeySpecException {
+    public static Map<String, Object> decomposeDerPv(String hexKey) throws NoSuchAlgorithmException, DecoderException, InvalidKeySpecException {
         Map<String, Object> result = new HashMap<>();
-        PKCS8EncodedKeySpec x509EncodedKeySpec = new PKCS8EncodedKeySpec(Hex.decodeHex(hexKey.toCharArray()));
+        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Hex.decodeHex(hexKey.toCharArray()));
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyFactory.generatePrivate(x509EncodedKeySpec);
+        RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyFactory.generatePrivate(pkcs8EncodedKeySpec);
         RSAPrivateCrtKeyImpl spec = (RSAPrivateCrtKeyImpl) rsaPrivateKey;
         result.put(Constants.P, spec.getPrimeP().toString(16).toUpperCase());
         result.put(Constants.Q, spec.getPrimeP().toString(16).toUpperCase());
@@ -72,6 +97,5 @@ public class RsaUtil {
         result.put(Constants.INV_Q_P, spec.getCrtCoefficient().toString(16).toUpperCase());
         result.put(Constants.E, spec.getPublicExponent().toString(16).toUpperCase());
         return result;
-
     }
 }

@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Map;
@@ -35,6 +36,18 @@ public class RsaActionListener implements ActionListener {
                 decomposeDerpk(e);
                 break;
             case "分解DER私钥":
+                decomposeDerpv(e);
+                break;
+            case "公钥加密（PKCS1）": // TODO: 2022/8/11
+                decomposeDerpv(e);
+                break;
+            case "公钥解密（PKCS1）": // TODO: 2022/8/11
+                decomposeDerpv(e);
+                break;
+            case "公钥加密": // TODO: 2022/8/11
+                decomposeDerpv(e);
+                break;
+            case "公钥解密": // TODO: 2022/8/11
                 decomposeDerpv(e);
                 break;
             default:
@@ -84,7 +97,30 @@ public class RsaActionListener implements ActionListener {
      * @param e
      */
     private void getDerPv(ActionEvent e) {
-
+        Container parent = ((JButton) e.getSource()).getParent();
+        Component nComponent = PanelUtil.searchComponentByName(parent, "n");
+        String n = PanelUtil.getDataFromScrollPanel((JScrollPane) nComponent);
+        Component dComponent = PanelUtil.searchComponentByName(parent, "d");
+        String d = PanelUtil.getDataFromScrollPanel((JScrollPane) dComponent);
+        Component pComponent = PanelUtil.searchComponentByName(parent, "p");
+        String p = PanelUtil.getDataFromScrollPanel((JScrollPane) pComponent);
+        Component qComponent = PanelUtil.searchComponentByName(parent, "q");
+        String q = PanelUtil.getDataFromScrollPanel((JScrollPane) qComponent);
+        Component dpComponent = PanelUtil.searchComponentByName(parent, "dp");
+        String dp = PanelUtil.getDataFromScrollPanel((JScrollPane) dpComponent);
+        Component dqComponent = PanelUtil.searchComponentByName(parent, "dq");
+        String dq = PanelUtil.getDataFromScrollPanel((JScrollPane) dqComponent);
+        Component invqpComponent = PanelUtil.searchComponentByName(parent, "invqp");
+        String invqp = PanelUtil.getDataFromScrollPanel((JScrollPane) invqpComponent);
+        Component eComponent = PanelUtil.searchComponentByName(parent, "e");
+        String eM = PanelUtil.getDataFromScrollPanel((JScrollPane) eComponent);
+        try {
+            String privateKey = RsaUtil.geneneratePrivateKey(n, p, q, d, eM, dp, dq, invqp);
+            Component pvComponent = PanelUtil.searchComponentByName(parent, "pvDER");
+            ((JTextArea) ((JScrollPane) pvComponent).getViewport().getComponents()[0]).setText(privateKey);
+        } catch (InvalidKeySpecException | NoSuchAlgorithmException | InvalidKeyException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
