@@ -8,7 +8,12 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import sun.security.rsa.RSAPrivateCrtKeyImpl;
 import sun.security.rsa.RSAUtil;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -97,5 +102,54 @@ public class RsaUtil {
         result.put(Constants.INV_Q_P, spec.getCrtCoefficient().toString(16).toUpperCase());
         result.put(Constants.E, spec.getPublicExponent().toString(16).toUpperCase());
         return result;
+    }
+
+    public static String encryptByPk(String pkDer, String data) throws NoSuchAlgorithmException, DecoderException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        RSAPublicKey publicKey = getRsaPublicKey(pkDer);
+        //RSA加密
+        Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+        byte[] result = cipher.doFinal(Hex.decodeHex(data.toCharArray()));
+        return Hex.encodeHexString(result);
+    }
+
+    private static RSAPublicKey getRsaPublicKey(String pkDer) throws DecoderException, NoSuchAlgorithmException, InvalidKeySpecException {
+        X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(Hex.decodeHex(pkDer.toCharArray()));
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        RSAPublicKey publicKey = (RSAPublicKey) keyFactory.generatePublic(x509EncodedKeySpec);
+        return publicKey;
+    }
+
+    public static String decryptByPk(String pkDer, String data) throws DecoderException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        RSAPublicKey publicKey = getRsaPublicKey(pkDer);
+        //RSA加密
+        Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.DECRYPT_MODE, publicKey);
+        byte[] result = cipher.doFinal(Hex.decodeHex(data.toCharArray()));
+        return Hex.encodeHexString(result);
+    }
+
+    public static String encryptByPv(String pvDer, String data) throws DecoderException, InvalidKeySpecException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        RSAPrivateKey privateKey = getRsaPrivateKey(pvDer);
+        Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.ENCRYPT_MODE, privateKey);
+        byte[] result = cipher.doFinal(Hex.decodeHex(data.toCharArray()));
+        return Hex.encodeHexString(result);
+    }
+
+    public static String decryptByPv(String pvDer, String data) throws DecoderException, InvalidKeySpecException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        RSAPrivateKey privateKey = getRsaPrivateKey(pvDer);
+        Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        byte[] result = cipher.doFinal(Hex.decodeHex(data.toCharArray()));
+        return Hex.encodeHexString(result);
+
+    }
+
+    private static RSAPrivateKey getRsaPrivateKey(String pvDer) throws DecoderException, InvalidKeySpecException, NoSuchAlgorithmException {
+        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Hex.decodeHex(pvDer.toCharArray()));
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyFactory.generatePrivate(pkcs8EncodedKeySpec);
+        return rsaPrivateKey;
     }
 }

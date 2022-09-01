@@ -8,6 +8,9 @@ import org.apache.commons.codec.DecoderException;
 import org.apache.commons.lang3.StringUtils;
 import com.mochi.secret.RsaUtil;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -38,11 +41,11 @@ public class RsaActionListener implements ActionListener {
             case "分解DER私钥":
                 decomposeDerpv(e);
                 break;
-            case "公钥加密（PKCS1）": // TODO: 2022/8/11
-                decomposeDerpv(e);
+            case "公钥加密（PKCS1）":
+                encByPkPkcs1(e);
                 break;
-            case "公钥解密（PKCS1）": // TODO: 2022/8/11
-                decomposeDerpv(e);
+            case "公钥解密（PKCS1）":
+                decByPkPkcs1(e);
                 break;
             case "公钥加密": // TODO: 2022/8/11
                 decomposeDerpv(e);
@@ -50,8 +53,112 @@ public class RsaActionListener implements ActionListener {
             case "公钥解密": // TODO: 2022/8/11
                 decomposeDerpv(e);
                 break;
+            case "私钥加密（PKCS1）":
+                encByPvPkcs1(e);
+                break;
+            case "私钥解密（PKCS1）":
+                decByPvPkcs1(e);
+                break;
+            case "私钥加密": // TODO: 2022/9/1
+                decomposeDerpv(e);
+                break;
+            case "私钥解密": // TODO: 2022/9/1
+                decomposeDerpv(e);
+                break;
             default:
                 throw new BusinessException(ResponseEnum.PB_0001.getRespCode(), ResponseEnum.PB_0001.getRespMsg());
+        }
+    }
+
+    private void decByPvPkcs1(ActionEvent e) {
+        Container parent = ((JButton) e.getSource()).getParent();
+        //获取私钥
+        Component pvCom = PanelUtil.searchComponentByName(parent, "pvDER");
+        String pvDer = PanelUtil.getDataFromScrollPanel((JScrollPane) pvCom);
+        //获取data
+        Component dataCom = PanelUtil.searchComponentByName(parent, "data");
+        String data = PanelUtil.getDataFromScrollPanel((JScrollPane) dataCom);
+        try {
+            String result = RsaUtil.decryptByPv(pvDer, data);
+            Component resultComponent = PanelUtil.searchComponentByName(parent, "result");
+            ((JTextArea) ((JScrollPane) resultComponent).getViewport().getComponents()[0]).setText(result);
+        } catch (NoSuchAlgorithmException | DecoderException | InvalidKeySpecException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex) {
+            //赋值
+            Component resultComponent = PanelUtil.searchComponentByName(parent, "result");
+            ((JTextArea) ((JScrollPane) resultComponent).getViewport().getComponents()[0]).setText(ex.getMessage());
+        }
+    }
+
+    /**
+     * 私钥加密PKCS1
+     *
+     * @param e
+     */
+    private void encByPvPkcs1(ActionEvent e) {
+        Container parent = ((JButton) e.getSource()).getParent();
+        //获取私钥
+        Component pvCom = PanelUtil.searchComponentByName(parent, "pvDER");
+        String pvDer = PanelUtil.getDataFromScrollPanel((JScrollPane) pvCom);
+        //获取data
+        Component dataCom = PanelUtil.searchComponentByName(parent, "data");
+        String data = PanelUtil.getDataFromScrollPanel((JScrollPane) dataCom);
+        try {
+            String result = RsaUtil.encryptByPv(pvDer, data);
+            Component resultComponent = PanelUtil.searchComponentByName(parent, "result");
+            ((JTextArea) ((JScrollPane) resultComponent).getViewport().getComponents()[0]).setText(result);
+        } catch (NoSuchAlgorithmException | DecoderException | InvalidKeySpecException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex) {
+            //赋值
+            Component resultComponent = PanelUtil.searchComponentByName(parent, "result");
+            ((JTextArea) ((JScrollPane) resultComponent).getViewport().getComponents()[0]).setText(ex.getMessage());
+        }
+    }
+
+    /**
+     * 公钥解密
+     *
+     * @param e
+     */
+    private void decByPkPkcs1(ActionEvent e) {
+        Container parent = ((JButton) e.getSource()).getParent();
+        //获取公钥
+        Component pkCom = PanelUtil.searchComponentByName(parent, "pkDER");
+        String pkDer = PanelUtil.getDataFromScrollPanel((JScrollPane) pkCom);
+        //获取data
+        Component dataCom = PanelUtil.searchComponentByName(parent, "data");
+        String data = PanelUtil.getDataFromScrollPanel((JScrollPane) dataCom);
+        try {
+            String result = RsaUtil.decryptByPk(pkDer, data);
+            Component resultComponent = PanelUtil.searchComponentByName(parent, "result");
+            ((JTextArea) ((JScrollPane) resultComponent).getViewport().getComponents()[0]).setText(result);
+        } catch (NoSuchAlgorithmException | DecoderException | InvalidKeySpecException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex) {
+            //赋值
+            Component resultComponent = PanelUtil.searchComponentByName(parent, "result");
+            ((JTextArea) ((JScrollPane) resultComponent).getViewport().getComponents()[0]).setText(ex.getMessage());
+        }
+    }
+
+
+    /**
+     * 公钥加密（PKCS1）
+     *
+     * @param e
+     */
+    private void encByPkPkcs1(ActionEvent e) {
+        Container parent = ((JButton) e.getSource()).getParent();
+        //获取公钥
+        Component pkCom = PanelUtil.searchComponentByName(parent, "pkDER");
+        String pkDer = PanelUtil.getDataFromScrollPanel((JScrollPane) pkCom);
+        //获取data
+        Component dataCom = PanelUtil.searchComponentByName(parent, "data");
+        String data = PanelUtil.getDataFromScrollPanel((JScrollPane) dataCom);
+        try {
+            String result = RsaUtil.encryptByPk(pkDer, data);
+            Component resultComponent = PanelUtil.searchComponentByName(parent, "result");
+            ((JTextArea) ((JScrollPane) resultComponent).getViewport().getComponents()[0]).setText(result);
+        } catch (NoSuchAlgorithmException | DecoderException | InvalidKeySpecException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex) {
+            //赋值
+            Component resultComponent = PanelUtil.searchComponentByName(parent, "result");
+            ((JTextArea) ((JScrollPane) resultComponent).getViewport().getComponents()[0]).setText(ex.getMessage());
         }
     }
 
