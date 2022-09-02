@@ -1,5 +1,10 @@
 package com.mochi.common.util;
 
+import com.mochi.common.enumutil.ResponseEnum;
+import com.mochi.common.exception.BusinessException;
+import org.apache.commons.codec.binary.Hex;
+
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,8 +14,9 @@ import java.util.List;
 public class StringUtil {
 
     public static String hexString2binaryString(String hexString) {
-        if (hexString == null || hexString.length() % 2 != 0)
+        if (hexString == null || hexString.length() % 2 != 0) {
             return null;
+        }
         String bString = "", tmp;
         for (int i = 0; i < hexString.length(); i++) {
             tmp = "0000"
@@ -30,8 +36,9 @@ public class StringUtil {
 
 
     public static String binaryString2hexString(String bString) {
-        if (bString == null || bString.equals("") || bString.length() % 8 != 0)
+        if (bString == null || bString.equals("") || bString.length() % 8 != 0) {
             return null;
+        }
         StringBuffer tmp = new StringBuffer();
         int iTmp = 0;
         for (int i = 0; i < bString.length(); i += 4) {
@@ -65,10 +72,11 @@ public class StringUtil {
     }
 
     public static String substring(String str, int f, int t) {
-        if (f > str.length())
+        if (f > str.length()) {
             return null;
+        }
         if (t > str.length()) {
-            return str.substring(f, str.length());
+            return str.substring(f);
         } else {
             return str.substring(f, t);
         }
@@ -87,5 +95,12 @@ public class StringUtil {
         return count;
     }
 
+    public static byte[] xor(byte[] b1, byte[] b2) {
+        byte[] tXor = new byte[Math.min(b1.length, b2.length)];
+        for (int i = 0; i < tXor.length; i++) {
+            tXor[i] = (byte) (b1[i] ^ b2[i]); // 异或(Xor)
+        }
+        return tXor;
+    }
 
 }

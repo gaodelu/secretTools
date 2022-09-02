@@ -40,8 +40,9 @@ public class PanelUtil {
                     result = component;
                     return result;
                 } else if (null == result) {//递归调用所有下级组件列表
-                    if (component instanceof Container)
+                    if (component instanceof Container){
                         result = searchComponentByName((Container) component, name);
+                    }
                 }
             }
         }

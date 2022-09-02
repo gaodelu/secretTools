@@ -61,6 +61,28 @@ public class DesUtil {
         }
     }
 
+    public static byte[] encryptECB(byte[] key, byte[] data) {
+        try {
+            Key secretKey = initKey(key);
+            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM_ECB);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+            return cipher.doFinal(Hex.decode(data));
+        } catch (Exception e) {
+            throw new BusinessException(ResponseEnum.PB_0003.getRespCode(), e.getMessage());
+        }
+    }
+
+   public static byte[] decryptECB(byte[] key, byte[] data) {
+        try {
+            Key secretKey = initKey(key);
+            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM_ECB);
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+            return cipher.doFinal(Hex.decode(data));
+        } catch (Exception e) {
+            throw new BusinessException(ResponseEnum.PB_0003.getRespCode(), e.getMessage());
+        }
+    }
+
 
     /**
      * DES-ECB加密
@@ -97,7 +119,12 @@ public class DesUtil {
 
     private static Key initKey(String keyHex) throws InvalidKeyException, NoSuchAlgorithmException, InvalidKeySpecException {
         Security.addProvider(new BouncyCastleProvider());
-        DESKeySpec dks = new DESKeySpec(Hex.decode(keyHex));
+        return initKey(Hex.decode(keyHex));
+    }
+
+    private static Key initKey(byte[] keyHex) throws InvalidKeyException, NoSuchAlgorithmException, InvalidKeySpecException {
+        Security.addProvider(new BouncyCastleProvider());
+        DESKeySpec dks = new DESKeySpec(keyHex);
         SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(ALGORITHM);
         return keyFactory.generateSecret(dks);
     }

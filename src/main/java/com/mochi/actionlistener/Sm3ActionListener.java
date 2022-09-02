@@ -12,8 +12,8 @@ public class Sm3ActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            String data = PanelUtil.getDataFromScrollPanel(e,1);//数据
-            String hmac = PanelUtil.getDataFromScrollPanel(e,21);//hmac
+            String data = PanelUtil.getDataFromScrollPanel(e, 1);//数据
+            String hmac = PanelUtil.getDataFromScrollPanel(e, 21);//hmac
             Component componentResult = ((JButton) e.getSource()).getParent().getComponent(20);
             Component[] componentResults = ((JScrollPane) componentResult).getViewport().getComponents();
             if (hmac == null || hmac.length() == 0) {

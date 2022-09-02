@@ -11,7 +11,6 @@ import java.util.Map;
 
 public class Application {
     /**
-     * {
      * 创建并显示GUI。出于线程安全的考虑，
      * 这个方法在事件调用线程中调用。
      */
@@ -19,7 +18,7 @@ public class Application {
         // 确保一个漂亮的外观风格
         JFrame.setDefaultLookAndFeelDecorated(true);
         // 创建及设置窗口
-        JFrame frame = new JFrame("数据转换");
+        JFrame frame = new JFrame("secret tool");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1100, 800);
         frame.setLocation(500, 500);

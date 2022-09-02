@@ -6,7 +6,10 @@ import com.mochi.common.util.PanelUtil;
 import com.mochi.common.util.StringUtil;
 import com.mochi.secret.AesUtil;
 import com.mochi.secret.DesUtil;
+import com.mochi.secret.HashUtil;
 import com.mochi.secret.SM4Util;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -72,12 +75,12 @@ public class EncryptActionListener implements ActionListener {
 
     }
 
-    private String getResultString(ActionEvent e, String data, String key, String iv, String algorithm, String data1) throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, NoSuchProviderException, InvalidKeyException, InvalidAlgorithmParameterException {
+    private String getResultString(ActionEvent e, String data, String key, String iv, String algorithm, String data1) throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, NoSuchProviderException, InvalidKeyException, InvalidAlgorithmParameterException, DecoderException {
         switch (e.getActionCommand()) {
             case "SM4加密":
-                return SM4Util.encryptEcb(key, data,iv).toUpperCase();
+                return SM4Util.encryptEcb(key, data, iv).toUpperCase();
             case "SM4解密":
-                return SM4Util.decryptEcb(key, data,iv).toUpperCase();
+                return SM4Util.decryptEcb(key, data, iv).toUpperCase();
             case "密钥奇校验":
                 return keyOddCheck(key);
             case "data奇校验":
@@ -95,9 +98,11 @@ public class EncryptActionListener implements ActionListener {
             case "data校验值":
                 return getEncryptData("0000000000000000", data, "", algorithm);
             case "dataXordata1":
-                return xor(data, data1);
+                return Hex.encodeHexString(StringUtil.xor(Hex.decodeHex(data.toCharArray()), Hex.decodeHex(data1.toCharArray())));
             case "X9.19":
-                return "开发中";
+                return Hex.encodeHexString(HashUtil.x919Hash(Hex.decodeHex(key.toCharArray()), Hex.decodeHex(data.toCharArray())));
+            case "X9.9":
+                return Hex.encodeHexString(HashUtil.x99Hash(Hex.decodeHex(key.toCharArray()), Hex.decodeHex(data.toCharArray())));
             default:
                 throw new BusinessException(ResponseEnum.PB_0001.getRespCode(), ResponseEnum.PB_0001.getRespMsg());
         }
@@ -146,26 +151,6 @@ public class EncryptActionListener implements ActionListener {
                 binary = StringUtil.replaceLastChar(binary, binary.endsWith("1") ? "0" : "1");
             }
             result.append(binary);
-        }
-        return StringUtil.binaryString2hexString(result.toString());
-    }
-
-
-    private String xor(String data, String data1) {
-        if (data.length() != data1.length()) {
-            throw new BusinessException(ResponseEnum.PB_0007.getRespCode(), ResponseEnum.PB_0007.getRespMsg());
-        }
-        String dataBinary = StringUtil.hexString2binaryString(data);
-        String data1Binary = StringUtil.hexString2binaryString(data1);
-        List<String> dataBinaryList = StringUtil.getStrList(dataBinary, 1);
-        List<String> data1BinaryList = StringUtil.getStrList(data1Binary, 1);
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < dataBinaryList.size(); i++) {
-            if (dataBinaryList.get(i).equals(data1BinaryList.get(i))) {
-                result.append("0");
-            } else {
-                result.append("1");
-            }
         }
         return StringUtil.binaryString2hexString(result.toString());
     }

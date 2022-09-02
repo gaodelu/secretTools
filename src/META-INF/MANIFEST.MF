@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: com.mochi.Application
-Class-Path: bcprov-jdk15on-1.60.jar commons-lang3-3.7.jar org.apache.com
- mons.codec-1.8.jar commons-codec-1.8.jar
-

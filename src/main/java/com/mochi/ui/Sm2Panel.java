@@ -8,7 +8,7 @@ public class Sm2Panel extends JPanel {
     public Sm2Panel() {
         this.setBackground(Color.cyan);
         this.setVisible(true);
-        JLabel jLabel = new JLabel("sm2算法待解锁，付费30元一个月搞定");
+        JLabel jLabel = new JLabel("sm2算法待解锁");
         jLabel.setSize(200,200);
         jLabel.setLocation(100,100);
         jLabel.setVisible(true);

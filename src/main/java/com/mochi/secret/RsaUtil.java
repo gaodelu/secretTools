@@ -13,7 +13,6 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -55,7 +54,7 @@ public class RsaUtil {
         return Hex.encodeHexString(publicKey.getEncoded()).toUpperCase();
     }
 
-    public static String geneneratePrivateKey(String n, String p, String q, String d, String e, String pe, String qe, String coeff) throws InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException {
+    public static String geneneratePrivateKey(String n, String p, String q, String d, String e, String pe, String qe, String coeff) throws InvalidKeySpecException, InvalidKeyException {
         /**
          *  this.n = var2;
          *         this.e = var3;
@@ -143,13 +142,11 @@ public class RsaUtil {
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         byte[] result = cipher.doFinal(Hex.decodeHex(data.toCharArray()));
         return Hex.encodeHexString(result);
-
     }
 
     private static RSAPrivateKey getRsaPrivateKey(String pvDer) throws DecoderException, InvalidKeySpecException, NoSuchAlgorithmException {
         PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Hex.decodeHex(pvDer.toCharArray()));
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyFactory.generatePrivate(pkcs8EncodedKeySpec);
-        return rsaPrivateKey;
+        return (RSAPrivateKey) keyFactory.generatePrivate(pkcs8EncodedKeySpec);
     }
 }

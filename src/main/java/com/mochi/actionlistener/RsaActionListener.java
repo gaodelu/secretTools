@@ -225,7 +225,7 @@ public class RsaActionListener implements ActionListener {
             String privateKey = RsaUtil.geneneratePrivateKey(n, p, q, d, eM, dp, dq, invqp);
             Component pvComponent = PanelUtil.searchComponentByName(parent, "pvDER");
             ((JTextArea) ((JScrollPane) pvComponent).getViewport().getComponents()[0]).setText(privateKey);
-        } catch (InvalidKeySpecException | NoSuchAlgorithmException | InvalidKeyException ex) {
+        } catch (InvalidKeySpecException | InvalidKeyException ex) {
             ex.printStackTrace();
         }
     }
