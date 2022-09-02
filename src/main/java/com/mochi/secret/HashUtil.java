@@ -3,6 +3,8 @@ package com.mochi.secret;
 import com.mochi.common.enumutil.ResponseEnum;
 import com.mochi.common.exception.BusinessException;
 import com.mochi.common.util.StringUtil;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
 
 public class HashUtil {
 
@@ -67,5 +69,4 @@ public class HashUtil {
         byte[] resultTemp = DesUtil.decryptECB(keyRight, result99);
         return DesUtil.encryptECB(resultTemp, keyLeft);
     }
-
 }

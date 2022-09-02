@@ -7,6 +7,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Hex;
 
 import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
@@ -63,10 +64,11 @@ public class DesUtil {
 
     public static byte[] encryptECB(byte[] key, byte[] data) {
         try {
-            Key secretKey = initKey(key);
-            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM_ECB);
+            Cipher cipher = Cipher.getInstance("DES/ECB/NoPadding");
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+            SecretKey secretKey = keyFactory.generateSecret(new DESKeySpec(key));
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-            return cipher.doFinal(Hex.decode(data));
+            return cipher.doFinal(data);
         } catch (Exception e) {
             throw new BusinessException(ResponseEnum.PB_0003.getRespCode(), e.getMessage());
         }
@@ -74,10 +76,11 @@ public class DesUtil {
 
    public static byte[] decryptECB(byte[] key, byte[] data) {
         try {
-            Key secretKey = initKey(key);
-            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM_ECB);
+            Cipher cipher = Cipher.getInstance("DES/ECB/NoPadding");
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+            SecretKey secretKey = keyFactory.generateSecret(new DESKeySpec(key));
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
-            return cipher.doFinal(Hex.decode(data));
+            return cipher.doFinal(data);
         } catch (Exception e) {
             throw new BusinessException(ResponseEnum.PB_0003.getRespCode(), e.getMessage());
         }
