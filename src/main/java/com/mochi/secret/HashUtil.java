@@ -3,18 +3,16 @@ package com.mochi.secret;
 import com.mochi.common.enumutil.ResponseEnum;
 import com.mochi.common.exception.BusinessException;
 import com.mochi.common.util.StringUtil;
-import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.binary.Hex;
 
 public class HashUtil {
 
     /**
-     * ANSI X9.9MAC算法
-     * (1) ANSI X9.9MAC算法只使用单倍长密钥。
-     * (2)  MAC数据先按8字节分组，表示为D0～Dn，如果Dn不足8字节时，尾部以字节00补齐。
-     * (3) 用MAC密钥加密D0，加密结果与D1异或作为下一次的输入。
-     * (4) 将上一步的加密结果与下一分组异或，然后再用MAC密钥加密。
-     * (5) 直至所有分组结束，取最后结果的左半部作为MAC。
+     * ANSI X9.9MAC算法 <br/>
+     * (1) ANSI X9.9MAC算法只使用单倍长密钥。 <br/>
+     * (2)  MAC数据先按8字节分组，表示为D0～Dn，如果Dn不足8字节时，尾部以字节00补齐。 <br/>
+     * (3) 用MAC密钥加密D0，加密结果与D1异或作为下一次的输入。 <br/>
+     * (4) 将上一步的加密结果与下一分组异或，然后再用MAC密钥加密。 <br/>
+     * (5) 直至所有分组结束，取最后结果的左半部作为MAC。 <br/>
      * 采用x9.9算法计算MAC (Count MAC by ANSI-x9.9).
      *
      * @param key  8字节密钥数据
